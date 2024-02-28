@@ -1,0 +1,30 @@
+version: '3.9'
+name: "caracal_software_certs"
+services:
+  create-cert: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: /bin/ash
+    working_dir: /export
+    volumes:
+      - ./broker:/scripts
+      #- ./broker/export:/export
+      - ./dist/broker:/dist
+    command: /scripts/create-broker-certs.sh
+    env_file:
+      - ./broker/broker.env
+  hive:
+    image: hivemq/hivemq-ce:latest
+    container_name: hivemq
+    volumes:
+      - ./dist/broker/hive-mq/config:/opt/hivemq/conf:ro
+      - ./dist/broker/hive-mq/certs:/opt/hivemq/certificates:ro
+    deploy:
+      resources:
+        limits:
+          memory: 800M
+    mem_reservation: 800M
+    ports:
+      - "1887:1883"
+      - "8887:8883"
