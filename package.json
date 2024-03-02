@@ -1,0 +1,15 @@
+{
+  "name": "solace",
+  "version": "1.0.0",
+  "description": "docker compose run --rm -it create-cert",
+  "main": "demo.js",
+  "scripts": {
+    "mqtt": "node demo.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^5.3.6"
+  }
+}

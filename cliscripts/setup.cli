@@ -1,0 +1,12 @@
+! Script is created to be idempotent
+
+enable
+
+! Setup root CA
+configure
+ssl
+server-certificate server_cert.pem
+create domain-certificate-authority ca
+certificate file ca_cert.pem
+show client-certificate-authority ca-name *
+end
