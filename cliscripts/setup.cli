@@ -62,7 +62,36 @@ acl-profile admin
 no shutdown
 end
 
+!---------------------------------------------------------------------------------
+!configure
+!create client-profile default_client_profile message-vpn default
+!end
+
+!configure
+!create acl-profile default_client_acl message-vpn default allow-client-connect allow-publish-topic allow-subscribe-topic
+!end
+
+! todo fix this
+! Create default_client user (password: admin) with admin ACL
+configure
+create client-username default_client message-vpn default
+end
+configure
+client-username default_client message-vpn default
+password admin
+! Client Username admin must be shutdown to change the ACL profile
+shutdown
+acl-profile default_client_acl
+no shutdown
+end
+
+! todo fix this  Add user to user management
 
 
+!configure
+!authentication
+!create client-certificate-authority ca_default_client
+!certificate file ca_default_client.pem
+!end
 
 
