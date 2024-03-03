@@ -33,4 +33,3 @@ https://gist.github.com/deskoh/e3338a3b84daa28dc8e3640ea4f50c52
 
 docker exec -it pubSubStandardSingleNode /usr/sw/loads/currentload/bin/cli -A -es /cliscripts/setup.cli
 
-docker exec -it pubSubStandardSingleNode /usr/sw/loads/currentload/bin/cli -A -es /usr/sw/jail/setup.cli

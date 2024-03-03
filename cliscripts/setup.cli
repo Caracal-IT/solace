@@ -5,8 +5,8 @@ enable
 ! Setup root CA
 configure
 ssl
-server-certificate server_cert.pem
+server-certificate caracal-dev.pem
 create domain-certificate-authority ca
-certificate file ca_cert.pem
+certificate file ca.pem
 show client-certificate-authority ca-name *
 end

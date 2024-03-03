@@ -11,7 +11,7 @@ services:
       - ./broker:/scripts
       - ./broker/export:/export
       - ./dist/broker:/dist
-    command: /scripts/create-certs.sh
+    command: /scripts/cert.sh
     env_file:
       - ./broker/broker.env
 
@@ -71,7 +71,8 @@ services:
       - username=admin
       - password=admin
     volumes:
-      - ./data/jail:/usr/sw/jail
+      - ./certs:/usr/sw/jail/certs
+      - ./cliscripts:/usr/sw/jail/cliscripts
       #- ./data/diags:/var/lib/solace/diags
       #- ./data/internalSpool:/usr/sw/internalSpool
       #- ./data/adb:/usr/sw/adb
