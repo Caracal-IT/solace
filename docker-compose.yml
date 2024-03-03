@@ -16,7 +16,7 @@ services:
       - ./broker/broker.env
 
   solace:
-    container_name: pubSubStandardSingleNode
+    container_name: solace
     image: solace/solace-pubsub-standard:latest
     shm_size: 1g
     ulimits:
@@ -73,9 +73,3 @@ services:
     volumes:
       - ./certs:/usr/sw/jail/certs
       - ./cliscripts:/usr/sw/jail/cliscripts
-      #- ./data/diags:/var/lib/solace/diags
-      #- ./data/internalSpool:/usr/sw/internalSpool
-      #- ./data/adb:/usr/sw/adb
-      #- ./data/softAdb:/usr/sw/internalSpool/softAdb
-      #- ./data/var:/usr/sw/var
-      #- ./cliscripts:/cliscripts
