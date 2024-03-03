@@ -10,3 +10,59 @@ create domain-certificate-authority ca
 certificate file ca.pem
 show client-certificate-authority ca-name *
 end
+
+! Enable client authentication
+configure
+message-vpn default
+! Disable anonymous connection
+authentication basic auth-type internal
+! Enable client certificate authentication
+authentication client-certificate
+no shutdown
+end
+
+! Configure default ACL
+configure
+acl-profile default message-vpn default
+publish-topic default-action disallow
+subscribe-topic default-action disallow
+! Add publish topic exception
+publish-topic exceptions smf list device/$client-username/>
+! publish-topic exceptions mqtt list device/$client-username/#
+end
+
+! Disable unused non non-secure MQTT in Message VPN
+configure
+message-vpn default
+service mqtt plain-text shutdown
+service mqtt websocket shutdown
+end
+
+! Create admin ACL
+configure
+create acl-profile admin message-vpn default
+end
+configure
+acl-profile admin message-vpn default
+client-connect default-action allow
+publish-topic default-action allow
+subscribe-topic default-action allow
+end
+
+! Create admin user (password: admin) with admin ACL
+configure
+create client-username admin message-vpn default
+end
+configure
+client-username admin message-vpn default
+password admin
+! Client Username admin must be shutdown to change the ACL profile
+shutdown
+acl-profile admin
+no shutdown
+end
+
+
+
+
+
