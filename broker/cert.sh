@@ -27,7 +27,8 @@ openssl req                                             \
     -x509                                               \
     -nodes                                              \
     -days 365                                           \
-    -CA ca.pem -CAkey ca.key                            \
+    -CA ca.pem                                          \
+    -CAkey ca.key                                       \
     -newkey rsa:2048                                    \
     -keyout $APP_NAME.key                               \
     -out $APP_NAME.crt                                  \
@@ -39,16 +40,30 @@ openssl req                                             \
 # CONVERT TO PFX
 #
 echo ---------------------------------------------------
-openssl pkcs12                                          \
-    -inkey $APP_NAME.key                                \
-    -in $APP_NAME.crt                                   \
-    -export -out $APP_NAME.pfx                          \
-    -passin pass:$PASSWORD                              \
-    -passout pass:$PASSWORD                             \
+openssl pkcs12                                         \
+    -inkey $APP_NAME.key                               \
+    -in $APP_NAME.crt                                  \
+    -export -out $APP_NAME.pfx                         \
+    -passin pass:$PASSWORD                             \
+    -passout pass:$PASSWORD                            \
     
+#
+# CREATE RSA
+#   
+echo ---------------------------------------------------
+openssl pkcs12                                         \
+    -in $APP_NAME.pfx                                  \
+    -nocerts                                           \
+    -nodes                                             \
+    -out $APP_NAME.rsa                                 \
+    -passin pass:$PASSWORD                             \
+
 #
 # CREATE PEM
 #   
 echo ---------------------------------------------------
-openssl pkcs12 -in $APP_NAME.pfx -nocerts -nodes -out $APP_NAME.rsa -passin pass:$PASSWORD 
-openssl pkcs12 -in $APP_NAME.pfx -out $APP_NAME.pem -nodes -passin pass:$PASSWORD
+openssl pkcs12                                         \
+    -in $APP_NAME.pfx                                  \
+    -out $APP_NAME.pem                                 \
+    -nodes                                             \
+    -passin pass:$PASSWORD                             \
