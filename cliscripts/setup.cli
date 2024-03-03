@@ -38,24 +38,24 @@ service mqtt plain-text shutdown
 service mqtt websocket shutdown
 end
 
-! Create admin ACL
+! Create default_client ACL
 configure
-create acl-profile admin message-vpn default
+create acl-profile default_client message-vpn default
 end
 configure
-acl-profile admin message-vpn default
+acl-profile default_client message-vpn default
 client-connect default-action allow
 publish-topic default-action allow
 subscribe-topic default-action allow
 end
 
-! Create default_client user (password: default_client) with default_client ACL
+! Create default_client user (password: password@divi) with default_client ACL
 configure
 create client-username default_client message-vpn default
 end
 configure
 client-username default_client message-vpn default
-password admin
+password password@divi
 ! Client Username default_client must be shutdown to change the ACL profile
 shutdown
 acl-profile default_client
