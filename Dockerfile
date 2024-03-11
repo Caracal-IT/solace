@@ -1,5 +1,7 @@
 FROM alpine:latest
 
+ENV LANG='C.UTF-8'
+
 # Install OpenSSL and OpenJDK
 RUN apk update && \
     apk add --no-cache openssl openjdk11
